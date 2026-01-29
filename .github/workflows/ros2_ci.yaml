@@ -1,6 +1,5 @@
 name: Chimera Prime CI
 
-# 触发机制：当 push 到 main 分支，或提交 PR 时触发
 on:
   push:
     branches: [ main ]
@@ -9,23 +8,21 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-22.04 # 使用标准的 Linux 环境
+    runs-on: ubuntu-22.04
     steps:
-      # 1. 把你的代码从 GitHub 仓库拉取到虚拟服务器
       - uses: actions/checkout@v4
 
-      # 2. 安装 ROS 2 (使用官方工具链，省去手动敲 apt-get)
+      # 安装 ROS 2
       - uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: humble
 
-      # 3. 编译并测试 (核心步骤)
-      # 这个 Action 会自动处理 colcon build 和 colcon test
-      - uses: ros-tooling/action-ros-ci@v0.3
+      # 编译与测试 (升级到 v0.7 以修复 Humble 兼容性)
+      - uses: ros-tooling/action-ros-ci@v0.7
         with:
           package-name: chimera_sensing
           target-ros2-distro: humble
-          # 开启 C++ 测试覆盖率检查 (可选，架构师建议开启)
+          # 开启覆盖率检查的默认配置 (可选，但在 v0.7 中更稳定)
           colcon-defaults: |
             {
               "build": {

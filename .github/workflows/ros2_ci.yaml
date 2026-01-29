@@ -12,17 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 安装 ROS 2
+      # 1. 安装 ROS 2 (保持 v0.7 不变，这是对的)
       - uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: humble
 
-      # 编译与测试 (升级到 v0.7 以修复 Humble 兼容性)
-      - uses: ros-tooling/action-ros-ci@v0.7
+      # 2. 编译与测试 (修正为 v0.4)
+      - uses: ros-tooling/action-ros-ci@v0.4
         with:
           package-name: chimera_sensing
           target-ros2-distro: humble
-          # 开启覆盖率检查的默认配置 (可选，但在 v0.7 中更稳定)
           colcon-defaults: |
             {
               "build": {

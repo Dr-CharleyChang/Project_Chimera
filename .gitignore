@@ -1,0 +1,13 @@
+# 忽略 Python 缓存
+__pycache__/
+*.py[cod]
+
+# 忽略 C++ 编译中间产物 (虽然通常在 src 外，但以防万一)
+.vscode/
+build/
+install/
+log/
+
+# 忽略临时文件
+*~
+*.swp

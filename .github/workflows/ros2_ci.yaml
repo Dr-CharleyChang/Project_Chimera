@@ -1,0 +1,34 @@
+name Chimera Prime CI 
+
+env:
+  TARGET_PACKAGE: chimera_sensing
+
+on:
+  push:
+  branches:
+    - main
+  pull_request:
+  branches:
+    - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: jazzy
+
+      - uses: ros-tooling/action-ros-ci@v0.4
+        with:
+          package-name: ${{ env.TARGET_PACKAGE }}
+          target-ros-distro: jazzy
+          build-tool: colcon
+          colcon-defaults: |
+            {
+              "build": {
+                "mixin": ["coverage-gcc"]
+              }
+            }

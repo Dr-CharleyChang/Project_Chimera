@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+
+.vscode/
+build/
+install/
+log/
+
+*~
+*.swp
+.DS_Store
